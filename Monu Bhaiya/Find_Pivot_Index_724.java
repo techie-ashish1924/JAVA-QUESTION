@@ -5,45 +5,30 @@ import org.w3c.dom.ls.LSException;
 public class Find_Pivot_Index_724 {
 
 
-    public static int Find(int arr[])
+    public static int Find(int nums[])
     {
-        int lo = 0;
-        int hi = arr.length - 1;
-        int l_sum = 0;
-        int r_sum = 0;
-        while(lo <= hi)
+
+
+        int sum = 0, leftsum = 0;
+        for (int x: nums)
         {
-            // l_sum += arr[lo];
-            // r_sum += arr[hi];
-
-            if(l_sum == r_sum && (hi - lo == 0))
-            {
-                return lo;
-            }
-
-            else if(r_sum > l_sum)
-            {
-               
-                l_sum += arr[lo];
-                lo++;
-            }
-            else if(l_sum > r_sum)
-            {
-                
-                r_sum += arr[hi];
-               hi--;
-            }
-            else{
-                // lo++;
-              
-                // l_sum += arr[lo];
-                r_sum += arr[hi];
-                 hi--;
-            }
-
+            sum += x;
         }
 
+        for (int i = 0; i < nums.length; ++i) 
+        {
+            if (leftsum == sum - leftsum - nums[i]) 
+            {
+                return i;
+            }
+
+            leftsum += nums[i];
+        }
         return -1;
+
+
+
+        
     }
 
 
@@ -51,9 +36,11 @@ public class Find_Pivot_Index_724 {
         
         Scanner sc = new Scanner(System.in);
         // int arr[] = {1,7,3,6,5,6};
-        int arr[] = {1,2,3};
+        // int arr[] = {1,2,3};
         // int arr[] = {1,2,3,5,1,1,3,1};
         // int arr[] = {2,1,-1};
+
+        int arr[] = {-1,-1,-1,-1,-1,0};
 
 
         System.out.println(Find(arr));
