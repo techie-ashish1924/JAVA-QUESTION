@@ -11,11 +11,11 @@ public class Maximum_Ice_Cream_Bar_1833 {
         for (int i = 0; i < arr.length; i++) 
         {
 
-            if (cost = cost - arr[i])
+            if (cost - arr[i] >= 0)
             {
                 sum++;
             }
-            // cost -= ar r[i];
+            cost -= arr[i];
             // if (cost > 0) {
             //     sum++;
             // }
@@ -38,10 +38,10 @@ public class Maximum_Ice_Cream_Bar_1833 {
         // //     arr[i] = sc.nextInt();
         // // }
 
-        int arr[] = { 1, 3, 2, 4, 1 };
-        // int arr[] = { 10, 6, 8, 7, 7, 8 };
-        int cost = 7;
-        // int cost = 5;
+        // int arr[] = { 1, 3, 2, 4, 1 };
+        int arr[] = { 10, 6, 8, 7, 7, 8 };
+        // int cost = 7;
+        int cost = 5;
         System.out.println(find(arr, cost));
     }
     
