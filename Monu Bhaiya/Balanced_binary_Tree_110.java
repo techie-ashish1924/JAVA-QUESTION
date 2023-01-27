@@ -26,6 +26,10 @@ public class Balanced_binary_Tree_110 {
         public boolean IsBalanced(TreeNode root)
         {
 
+            if (root == null) {
+                return true;
+            }
+
             boolean left = IsBalanced(root.left);
             boolean right = IsBalanced(root.right);
             boolean isbal = Math.abs(height(root.left) - height(root.right)) <= 1;
