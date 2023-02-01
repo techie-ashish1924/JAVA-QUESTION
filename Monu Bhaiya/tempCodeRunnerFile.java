@@ -1,5 +1,3 @@
-else if(sum == 1)
-                    {
-                        // System.out.println("Inde xof i : " + i);
-                        return -1;
-                    }
+ortList.add(index, arr[i]);
+
+            ans[ansI
