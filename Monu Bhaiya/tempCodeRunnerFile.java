@@ -1,3 +1,3 @@
-ortList.add(index, arr[i]);
-
-            ans[ansI
+if (sum != map.get(ch)) {
+                return false;
+            }
