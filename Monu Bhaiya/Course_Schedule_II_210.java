@@ -1,16 +1,12 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.naming.ldap.HasControls;
-
-public class Course_Schedule_207 {
+public class Course_Schedule_II_210 {
 
 
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) 
+    public int[] findOrder(int numCourses, int[][] prerequisites)
     {
-
         HashMap<Integer, List<Integer>> map = new HashMap<>();
 
         for (int i = 0; i < numCourses; i++) {
@@ -25,14 +21,14 @@ public class Course_Schedule_207 {
         }
 
     }
-    
 
-    public static int[] Indegree(HashMap<Integer, List<Integer>> map) 
-     {
+
+
+    public static int[] Indegree(HashMap<Integer, List<Integer>> map) {
         int[] in = new int[map.size()];
 
         for (int key : map.keySet()) {
-            for (int nbrs : map.get(key).keySet()) {
+            for (int nbrs : map.get(key)) {
                 in[nbrs]++;
             }
         }
@@ -40,10 +36,12 @@ public class Course_Schedule_207 {
         return in;
     }
 
-    public static boolean IsCycle(HashMap<Integer,List<Integer>> map) {
+    public static int[] IsCycle(HashMap<Integer, List<Integer>> map) {
         int[] in = Indegree();
         int count = 0;
 
+        int course[] = new int[map.size()];
+        int c_ind = 0;
         Queue<Integer> q = new LinkedList<>();
 
         for (int i = 0; i < in.length; i++) {
@@ -55,9 +53,11 @@ public class Course_Schedule_207 {
         while (!q.isEmpty()) {
             count++;
             int rv = q.poll();
+
+            count[c_ind++] = rv;
             // System.out.println(rv);
 
-            for (int nbrs : map.get(rv).keySet()) {
+            for (int nbrs : map.get(rv)) {
                 in[nbrs]--;
 
                 if (in[nbrs] == 0) {
@@ -67,7 +67,9 @@ public class Course_Schedule_207 {
 
         }
 
-        return count == map.size() ? true : false;
+        return count == map.size() ? course : new int[0];
+
+        // return course;
 
     }
     
