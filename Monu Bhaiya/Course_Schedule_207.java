@@ -32,7 +32,7 @@ public class Course_Schedule_207 {
         int[] in = new int[map.size()];
 
         for (int key : map.keySet()) {
-            for (int nbrs : map.get(key).keySet()) {
+            for (int nbrs : map.get(key)) {
                 in[nbrs]++;
             }
         }
