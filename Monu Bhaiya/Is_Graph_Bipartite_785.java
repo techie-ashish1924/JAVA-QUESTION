@@ -1,76 +1,78 @@
 import java.util.*;
 
+
+class BipartitePair {
+
+    int vtx;
+    int lv;
+
+    public BipartitePair(int src, int lv) {
+        this.vtx = src;
+        this.lv = lv;
+    }
+}
+
 public class Is_Graph_Bipartite_785 
 {
 
-    class BipartitePair 
-    {
-        
-        int vtx;
-        int lv;
-
-        public BipartitePair(int src,int lv)
-        {
-            this.vtx = src;
-            this.lv = lv;
-        }
-    }
+ 
 
 
     public static boolean isBipartite(int[][] graph) 
     {
-        HashMap<Integer,Integer> visited = new HashMap<>();
+        HashMap<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+        for (int i = 0; i < graph.length; i++) {
+            map.put(i, new HashMap<>());
+        }
 
-        Queue<BipartitePair> q = new LinkedList<>();
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph[i].length; j++) {
+                map.get(i).put(graph[i][j], 0);
+            }
+        }
 
-        for (int src = 0; src < graph.length;src++) {
+        return Bipartite(map);
+    }
+    
+    public static boolean Bipartite(HashMap<Integer,HashMap<Integer,Integer>> map)
+    {
 
+
+        LinkedList<BipartitePair> q = new LinkedList<>();
+
+        HashMap<Integer,Integer> visited = new HashMap();
+
+        for(int src : map.keySet())
+        {
             if (visited.containsKey(src)) {
                 continue;
             }
 
-            q.add(new BipartitePair(src,0));
+            BipartitePair bp = new BipartitePair(src, 0);
+
+            q.add(bp);
 
             while (!q.isEmpty()) {
+                BipartitePair rp = q.poll();
 
-                // 1. Remove
-
-                BipartitePair rv = q.poll();  // (1,0)
-
-                // 2. If already visited then ignore kro.
-
-                if (visited.containsKey(rv.vtx)) {
-
-                    if(visited.get(rv.vtx) != rv.lv)
-                        return false;
-                    else
-                        return true;
-                    // continue;
+                if (visited.containsKey(rp.vtx) && rp.lv != visited.get(rp.vtx)) {
+                    return false;
                 }
 
-                // 3 Visited.
-                visited.put(rv.vtx,rv.lv);
+                visited.put(rp.vtx, rp.lv);
 
-                // 4 Self work.
+                // System.out.println(val + " -> ");
 
-                // System.out.print(rv + " ");
-
-                // Add Neighbours
-
-                for (int nbrs : graph[rv.vtx]) {
+                for (int nbrs : map.get(rp.vtx).keySet()) {
                     if (!visited.containsKey(nbrs)) {
-                        q.add(new BipartitePair(nbrs, rv.lv + 1));
+                        BipartitePair nbp = new BipartitePair(nbrs, rp.lv + 1);
+                        q.add(nbp);
                     }
                 }
-
             }
-            return true;
-
         }
-
-    
-
-
+        
+        return true;
     }
 
 
@@ -78,8 +80,9 @@ public class Is_Graph_Bipartite_785
     public static void main(String[] args) 
     {
         
-        int arr[][] = { { 1, 2, 3 }, { 0, 2 }, { 0, 1, 3 }, { 0, 2 } };
+        // int arr[][] = { { 1, 2, 3 }, { 0, 2 }, { 0, 1, 3 }, { 0, 2 } };
 
+        int arr[][] = {{1,3},{0,2},{1,3},{0,2}};
         System.out.println(isBipartite(arr));
 
     }
